@@ -39,6 +39,7 @@ const AdminSettings = lazy(() => import('./pages/admin/Settings'));
 const AboutAdmin = lazy(() => import('./pages/admin/About'));
 const AdminServices = lazy(() => import('./pages/admin/Services'));
 const AdminCollaborators = lazy(() => import('./pages/admin/Collaborator'));
+const AdminRoute = lazy(() => import('./components/routes/AdminRoute'));
 
 function App() {
   const location = useLocation();
@@ -80,19 +81,26 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Route>
 
-          {/* Admin Routes with AdminLayout */}
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<AdminDashboard />} />
-            <Route path="products" element={<AdminProducts />} />
-            <Route path="workshops" element={<AdminWorkshops />} />
-            <Route path='registrations' element={<AdminWorkshopsRegistration />} />
-            <Route path="orders" element={<AdminOrders />} />
-            <Route path="users" element={<AdminUsers />} />
-            <Route path="settings" element={<AdminSettings />} />
-            <Route path="about" element={<AboutAdmin />} />
-            <Route path='services' element={<AdminServices />} />
-            <Route path='collaborators' element={<AdminCollaborators />} />
-          </Route>
+          <Route 
+  path="/admin" 
+  element={
+    <AdminRoute>
+      <AdminLayout />
+    </AdminRoute>
+  }
+>
+  <Route index element={<AdminDashboard />} />
+  <Route path="products" element={<AdminProducts />} />
+  <Route path="workshops" element={<AdminWorkshops />} />
+  <Route path="registrations" element={<AdminWorkshopsRegistration />} />
+  <Route path="orders" element={<AdminOrders />} />
+  <Route path="users" element={<AdminUsers />} />
+  <Route path="settings" element={<AdminSettings />} />
+  <Route path="about" element={<AboutAdmin />} />
+  <Route path="services" element={<AdminServices />} />
+  <Route path="collaborators" element={<AdminCollaborators />} />
+</Route>
+
         </Routes>
       </Suspense>
     </AnimatePresence>
