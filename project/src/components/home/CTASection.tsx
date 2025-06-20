@@ -41,7 +41,7 @@ const CTASection = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg md:text-xl text-gray-300 mb-8"
           >
-            Join Anantam Aerial today and experience the future of drone technology and services tailored to your specific needs.
+            Join Anantam Aerials and Robotics today and experience the future of drone technology and services tailored to your specific needs.
           </motion.p>
           
           <motion.div 

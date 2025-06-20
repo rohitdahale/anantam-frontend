@@ -13,7 +13,7 @@ const Footer = () => {
           <div>
             <Link to="/" className="flex items-center space-x-2 mb-4">
               <img src={logo} alt="Anantam Aerials and Robotics" className="w-6 h-6 object-contain" />
-              <span className="text-lg font-bold">Anantam Aerials and Robotics</span>
+              <span className="text-lg font-bold">Anantam Aerials And Robotics</span>
             </Link>
             <p className="text-gray-400 mb-4">
               Pioneering advanced aerial solutions and robotics systems for a connected future.
@@ -118,7 +118,7 @@ const Footer = () => {
               <li className="flex items-start space-x-3">
                 <MapPin size={20} className="text-primary-400 mt-1 flex-shrink-0" />
                 <span className="text-gray-400">
-                  Alandi, Pune - 412105
+                Pune – 412105 | Jalgaon – 425201
                 </span>
               </li>
               <li className="flex items-center space-x-3">
@@ -127,7 +127,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-3">
                 <Mail size={20} className="text-primary-400 flex-shrink-0" />
-                <span className="text-gray-400">info@anantamaerial.com</span>
+                <span className="text-gray-400">director@anantamaerialsandrobotics.com</span>
               </li>
             </ul>
           </div>
@@ -137,7 +137,7 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm mb-4 md:mb-0">
-            &copy; {currentYear} Anantam Aerials and Robotics. All rights reserved.
+            &copy; {currentYear} Anantam Aerials And Robotics. All rights reserved.
           </p>
           <div className="flex space-x-6">
             <Link to="/privacy-policy" className="text-gray-500 hover:text-gray-400 text-sm">

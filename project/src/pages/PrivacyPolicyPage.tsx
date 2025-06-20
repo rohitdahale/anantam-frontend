@@ -259,7 +259,7 @@ const PrivacyPolicyPage = () => {
                   If you have questions about this Privacy Policy or want to exercise your rights, contact us:
                 </p>
                 <div className="space-y-2 text-gray-300">
-                  <p><strong>Email:</strong> privacy@anantamaerials.com</p>
+                  <p><strong>Email:</strong> director@anantamaerialsandrobotics.com</p>
                   <p><strong>Phone:</strong> +91-79222 29737</p>
                   <p><strong>Address:</strong> Anantam Aerials and Robotics, Pune, Maharashtra, India</p>
                 </div>

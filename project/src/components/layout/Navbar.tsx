@@ -133,7 +133,7 @@ const Navbar = ({ scrolled }: NavbarProps) => {
               className="h-8 w-8 object-contain"
             />
             <span className="text-xl font-bold tracking-tight">
-              Anantam Aerial and Robotics
+              Anantam Aerials And Robotics
             </span>
           </Link>
 

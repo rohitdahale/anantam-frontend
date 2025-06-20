@@ -87,7 +87,7 @@ const ContactPage = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Helmet title="Contact Us | Anantam Aerial" />
+      <Helmet title="Contact Us | Anantam Aerials and Robotics" />
       
       {/* Hero Section */}
       <section className="relative pt-28 pb-20 overflow-hidden">
@@ -230,10 +230,10 @@ const ContactPage = () => {
       <div>
         <h3 className="text-lg font-semibold mb-1">Our Location</h3>
         <p className="text-gray-400">
-          123 Drone Avenue, Tech Park<br />
-          Alandi, Pune - 412105<br />
-          Maharashtra, India
-        </p>
+  Pune - 412105<br />
+  Jalgaon - 425201
+</p>
+
       </div>
     </div>
 
@@ -244,8 +244,7 @@ const ContactPage = () => {
       <div>
         <h3 className="text-lg font-semibold mb-1">Email Us</h3>
         <p className="text-gray-400">
-          info@anantamaerial.com<br />
-          support@anantamaerial.com
+          director@anantamaerialsandrobotics.com
         </p>
       </div>
     </div>
@@ -257,8 +256,7 @@ const ContactPage = () => {
       <div>
         <h3 className="text-lg font-semibold mb-1">Call Us</h3>
         <p className="text-gray-400">
-          +91 98765 43210<br />
-          +91 12345 67890
+          +91-7972229737
         </p>
       </div>
     </div>

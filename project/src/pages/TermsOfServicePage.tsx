@@ -193,7 +193,7 @@ const TermsOfServicePage = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Helmet title="Terms of Service | Anantam Aerial" />
+      <Helmet title="Terms of Service | Anantam Aerials and Robotics" />
       
       {/* Hero Section */}
       <section className="relative pt-28 pb-20 overflow-hidden">
@@ -228,7 +228,7 @@ const TermsOfServicePage = () => {
           <div className="card p-8 mb-12">
             <h2 className="text-2xl font-bold mb-4 text-primary-400">Agreement to Terms</h2>
             <p className="text-gray-300 leading-relaxed mb-4">
-              These Terms of Service ("Terms") constitute a legally binding agreement between you and <strong className="text-primary-400">Anantam Aerial</strong> ("Company", "we", "our", or "us") regarding your use of our website, products, and services.
+              These Terms of Service ("Terms") constitute a legally binding agreement between you and <strong className="text-primary-400">Anantam Aerials and Robotics</strong> ("Company", "we", "our", or "us") regarding your use of our website, products, and services.
             </p>
             <p className="text-gray-300 leading-relaxed mb-4">
               By accessing our website, purchasing our products, or using our services, you agree to be bound by these Terms. If you do not agree with any part of these terms, you may not access our services.
@@ -316,7 +316,7 @@ const TermsOfServicePage = () => {
                 
                 <h3 className="text-lg font-semibold mb-3 text-primary-400">Entire Agreement</h3>
                 <p className="text-gray-300">
-                  These Terms, along with our Privacy Policy, constitute the entire agreement between you and Anantam Aerial.
+                  These Terms, along with our Privacy Policy, constitute the entire agreement between you and Anantam Aerials and Robotics.
                 </p>
               </div>
             </div>
@@ -340,18 +340,18 @@ const TermsOfServicePage = () => {
                 <div className="text-center">
                   <p className="text-primary-400 font-semibold">Email</p>
                   <a href="mailto:legal@anantamaerials.com" className="text-gray-300 hover:text-primary-400 transition-colors">
-                    legal@anantamaerials.com
+                    director@anantamaerialsandrobotics.com
                   </a>
                 </div>
                 
                 <div className="text-center">
                   <p className="text-primary-400 font-semibold">Phone</p>
-                  <p className="text-gray-300">+91-XXXX-XXXXXX</p>
+                  <p className="text-gray-300">+91-79722 29737</p>
                 </div>
                 
                 <div className="text-center">
                   <p className="text-primary-400 font-semibold">Address</p>
-                  <p className="text-gray-300">Anantam Aerial<br />Nagpur, Maharashtra, India</p>
+                  <p className="text-gray-300">Anantam Aerials and Robotics<br />Pune, Maharashtra, India</p>
                 </div>
               </div>
             </div>

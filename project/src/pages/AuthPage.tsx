@@ -130,7 +130,7 @@ const AuthPage: React.FC = () => {
       transition={{ duration: 0.5 }}
       className="min-h-screen pt-28 pb-16 bg-dark-900"
     >
-      <Helmet title={isLogin ? "Sign In | Anantam Aerial" : "Sign Up | Anantam Aerial"} />
+      <Helmet title={isLogin ? "Sign In | Anantam Aerials and Robotics" : "Sign Up | Anantam Aerials and Robotics"} />
       
       <div className="container-custom">
         <div className="max-w-md mx-auto">
@@ -142,7 +142,7 @@ const AuthPage: React.FC = () => {
                 className="h-12 w-12 mx-auto mb-4 object-contain"
               />
               <h1 className="text-2xl font-bold">
-                {isLogin ? 'Sign In to Anantam Aerial' : 'Create Your Account'}
+                {isLogin ? 'Sign In to Anantam Aerials and Robotics' : 'Create Your Account'}
               </h1>
               <p className="text-gray-400 mt-2">
                 {isLogin 
