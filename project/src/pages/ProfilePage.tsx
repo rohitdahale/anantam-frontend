@@ -26,7 +26,7 @@ const api = {
       throw new Error('No authentication token found');
     }
 
-    const response = await fetch('https://anantam-backend-7ezq.onrender.com/api/users/profile', {
+    const response = await fetch('https://anantam-backend-7ezq.onrender.com/api/user/profile', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ const api = {
       throw new Error('No authentication token found');
     }
 
-    const response = await fetch('https://anantam-backend-7ezq.onrender.com/api/users/profile', {
+    const response = await fetch('https://anantam-backend-7ezq.onrender.com/api/user/profile', {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -69,7 +69,7 @@ const api = {
       throw new Error('No authentication token found');
     }
 
-    const response = await fetch('https://anantam-backend-7ezq.onrender.com/api/users/activity', {
+    const response = await fetch('https://anantam-backend-7ezq.onrender.com/api/user/activity', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
