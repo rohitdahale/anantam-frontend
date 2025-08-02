@@ -11,6 +11,10 @@ import PrivateRoute from './components/routes/PrivateRoute';
 // Legal Pages
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
 const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'));
+const TermsConditionsPage = lazy(() => import('./pages/TermsAndPolicy'));
+const ShippingPolicyPage = lazy(() => import('./pages/ShippingPolicy'));
+const CancellationRefundPage = lazy(() => import('./pages/CancellationRefund'));
+
 
 // Lazy loaded pages for better performance
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -67,6 +71,9 @@ function App() {
                  {/* Legal Pages */}
             <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="terms-of-service" element={<TermsOfServicePage />} />
+            <Route path="terms-and-conditions" element={<TermsConditionsPage />} />
+            <Route path="shipping-policy" element={<ShippingPolicyPage />} />
+            <Route path="cancellation-refund-policy" element={<CancellationRefundPage />} />
             
             {/* Protected Profile Route within Layout */}
             <Route 
