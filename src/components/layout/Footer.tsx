@@ -146,16 +146,6 @@ const Footer = () => {
             <Link to="/terms-of-service" className="text-gray-500 hover:text-gray-400 text-sm">
               Terms of Service
             </Link>
-            <Link to="/terms-and-conditions" className="text-gray-500 hover:text-gray-400 text-sm">
-              Terms and Conditions
-            </Link>
-            <Link to="/cancellation-refund-policy" className="text-gray-500 hover:text-gray-400 text-sm">
-            Cancellation & Refund Policy
-            </Link>
-            <Link to="/shipping-policy" className="text-gray-500 hover:text-gray-400 text-sm">
-            Shipping Policy
-            </Link>
-            
           </div>
         </div>
       </div>
