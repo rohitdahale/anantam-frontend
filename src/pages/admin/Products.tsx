@@ -36,12 +36,18 @@ interface NewProduct {
   category: string;
   description: string;
   features: string;
-  specifications: string;
+  specifications: SpecificationItem[]; // Changed from string to array
   price: string;
   stock: string;
   status: 'In Stock' | 'Low Stock' | 'Out of Stock';
   brand: string;
   images: File[];
+}
+
+// Add this new interface:
+interface SpecificationItem {
+  key: string;
+  value: string;
 }
 
 type Category = 'All' | 'Professional Drones' | 'Hobby Drones' | 'Components' | 'Accessories';
@@ -58,13 +64,14 @@ const Products: React.FC = () => {
     category: 'Professional Drones',
     description: '',
     features: '',
-    specifications: '',
+    specifications: [{ key: '', value: '' }], // Changed from empty string to array
     price: '',
     stock: '',
     status: 'In Stock',
     brand: '',
     images: [],
   });
+  
 
   const categories: Category[] = [
     'All',
@@ -103,13 +110,37 @@ const Products: React.FC = () => {
     }));
   };
 
+  const handleSpecificationChange = (index: number, field: 'key' | 'value', value: string): void => {
+    setNewProduct(prev => ({
+      ...prev,
+      specifications: prev.specifications.map((spec, i) => 
+        i === index ? { ...spec, [field]: value } : spec
+      )
+    }));
+  };
+  
+  const addSpecification = (): void => {
+    setNewProduct(prev => ({
+      ...prev,
+      specifications: [...prev.specifications, { key: '', value: '' }]
+    }));
+  };
+  
+  const removeSpecification = (index: number): void => {
+    setNewProduct(prev => ({
+      ...prev,
+      specifications: prev.specifications.filter((_, i) => i !== index)
+    }));
+  };
+  
+
   const resetForm = (): void => {
     setNewProduct({
       name: '',
       category: 'Professional Drones',
       description: '',
       features: '',
-      specifications: '',
+      specifications: [{ key: '', value: '' }], // Reset to single empty spec
       price: '',
       stock: '',
       status: 'In Stock',
@@ -118,12 +149,12 @@ const Products: React.FC = () => {
     });
     setEditingProduct(null);
     
-    // Reset file input
     const fileInput = document.getElementById('image-upload') as HTMLInputElement;
     if (fileInput) {
       fileInput.value = '';
     }
   };
+  
 
   const handleAddProduct = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
@@ -132,7 +163,7 @@ const Products: React.FC = () => {
       alert('Please fill in all required fields');
       return;
     }
-
+  
     setLoading(true);
     
     try {
@@ -141,7 +172,16 @@ const Products: React.FC = () => {
       formData.append('category', newProduct.category);
       formData.append('description', newProduct.description);
       formData.append('features', newProduct.features);
-      formData.append('specifications', newProduct.specifications);
+      
+      // Convert specifications array to object format
+      const specsObject = newProduct.specifications
+        .filter(spec => spec.key.trim() && spec.value.trim())
+        .reduce((acc, spec) => {
+          acc[spec.key.trim()] = spec.value.trim();
+          return acc;
+        }, {} as Record<string, string>);
+      
+      formData.append('specifications', JSON.stringify(specsObject));
       formData.append('price', newProduct.price);
       formData.append('stock', newProduct.stock);
       formData.append('status', newProduct.status);
@@ -150,7 +190,7 @@ const Products: React.FC = () => {
       newProduct.images.forEach((image) => {
         formData.append('images', image);
       });
-
+  
       if (editingProduct) {
         await axios.put(`https://anantam-backend-7ezq.onrender.com/api/products/${editingProduct._id}`, formData, {
           headers: {
@@ -164,7 +204,7 @@ const Products: React.FC = () => {
           },
         });
       }
-
+  
       setShowModal(false);
       resetForm();
       await fetchProducts();
@@ -178,12 +218,18 @@ const Products: React.FC = () => {
 
   const handleEditProduct = (product: Product): void => {
     setEditingProduct(product);
+    
+    // Convert specifications object back to array format
+    const specsArray = product.specifications && typeof product.specifications === 'object' 
+      ? Object.entries(product.specifications).map(([key, value]) => ({ key, value: value as string }))
+      : [{ key: '', value: '' }];
+    
     setNewProduct({
       name: product.name,
       category: product.category,
       description: product.description,
       features: product.features.join(', '),
-      specifications: JSON.stringify(product.specifications || {}),
+      specifications: specsArray,
       price: product.price.toString(),
       stock: product.stock.toString(),
       status: product.status,
@@ -192,6 +238,7 @@ const Products: React.FC = () => {
     });
     setShowModal(true);
   };
+  
 
   const handleDeleteProduct = async (productId: string): Promise<void> => {
     if (window.confirm('Are you sure you want to delete this product?')) {
@@ -453,14 +500,51 @@ const Products: React.FC = () => {
                   className="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-blue-500 resize-vertical"
                 />
 
-                <textarea
-                  name="specifications"
-                  placeholder='Specifications (JSON format, e.g., {"weight": "2kg", "battery": "30min", "range": "7km"})'
-                  value={newProduct.specifications}
-                  onChange={handleInputChange}
-                  rows={2}
-                  className="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-blue-500 resize-vertical"
-                />
+<div>
+  <div className="flex items-center justify-between mb-2">
+    <label className="text-sm font-medium text-gray-300">Specifications</label>
+    <button
+      type="button"
+      onClick={addSpecification}
+      className="text-blue-400 hover:text-blue-300 text-sm flex items-center"
+    >
+      <Plus size={16} className="mr-1" />
+      Add Specification
+    </button>
+  </div>
+  <div className="space-y-2 max-h-40 overflow-y-auto">
+    {newProduct.specifications.map((spec, index) => (
+      <div key={index} className="flex gap-2 items-center">
+        <input
+          type="text"
+          placeholder="Property (e.g., Weight, Battery Life)"
+          value={spec.key}
+          onChange={(e) => handleSpecificationChange(index, 'key', e.target.value)}
+          className="flex-1 p-2 rounded bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-blue-500 text-sm"
+        />
+        <input
+          type="text"
+          placeholder="Value (e.g., 2kg, 30 minutes)"
+          value={spec.value}
+          onChange={(e) => handleSpecificationChange(index, 'value', e.target.value)}
+          className="flex-1 p-2 rounded bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-blue-500 text-sm"
+        />
+        {newProduct.specifications.length > 1 && (
+          <button
+            type="button"
+            onClick={() => removeSpecification(index)}
+            className="text-red-400 hover:text-red-300 p-1"
+          >
+            <X size={16} />
+          </button>
+        )}
+      </div>
+    ))}
+  </div>
+  <div className="text-xs text-gray-400 mt-1">
+    Add key-value pairs for product specifications (e.g., Weight: 2kg, Battery: 30min)
+  </div>
+</div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <input
