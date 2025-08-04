@@ -77,6 +77,10 @@ const Workshops: React.FC = () => {
     curriculum: ['']
   });
 
+  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string>('');
+
+
   // API Base URL
   const API_BASE = 'https://anantam-backend-7ezq.onrender.com/api';
 
@@ -98,14 +102,27 @@ const Workshops: React.FC = () => {
   // Create workshop
   const createWorkshop = async (): Promise<void> => {
     try {
+      const formData = new FormData();
+      
+      // Add all workshop data to FormData
+      Object.keys(newWorkshop).forEach(key => {
+        if (key === 'upcoming' || key === 'curriculum') {
+          formData.append(key, JSON.stringify(newWorkshop[key as keyof NewWorkshop]));
+        } else {
+          formData.append(key, String(newWorkshop[key as keyof NewWorkshop]));
+        }
+      });
+      
+      // Add image file if selected
+      if (selectedImageFile) {
+        formData.append('image', selectedImageFile);
+      }
+  
       const response = await fetch(`${API_BASE}/workshops/admin/workshops`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newWorkshop),
+        body: formData, // Note: No Content-Type header when using FormData
       });
-
+  
       if (!response.ok) throw new Error('Failed to create workshop');
       
       await fetchWorkshops();
@@ -115,20 +132,33 @@ const Workshops: React.FC = () => {
       setError(err instanceof Error ? err.message : 'Failed to create workshop');
     }
   };
-
+  
   // Update workshop
   const updateWorkshop = async (): Promise<void> => {
     if (!editingWorkshop) return;
-
+  
     try {
+      const formData = new FormData();
+      
+      // Add all workshop data to FormData
+      Object.keys(newWorkshop).forEach(key => {
+        if (key === 'upcoming' || key === 'curriculum') {
+          formData.append(key, JSON.stringify(newWorkshop[key as keyof NewWorkshop]));
+        } else {
+          formData.append(key, String(newWorkshop[key as keyof NewWorkshop]));
+        }
+      });
+      
+      // Add image file if selected
+      if (selectedImageFile) {
+        formData.append('image', selectedImageFile);
+      }
+  
       const response = await fetch(`${API_BASE}/workshops/admin/workshops/${editingWorkshop._id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newWorkshop),
+        body: formData, // Note: No Content-Type header when using FormData
       });
-
+  
       if (!response.ok) throw new Error('Failed to update workshop');
       
       await fetchWorkshops();
@@ -138,6 +168,26 @@ const Workshops: React.FC = () => {
       setError(err instanceof Error ? err.message : 'Failed to update workshop');
     }
   };
+  
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedImageFile(file);
+      
+      // Create preview URL
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  
+  const resetImageSelection = (): void => {
+    setSelectedImageFile(null);
+    setImagePreview('');
+  };
+  
 
   // Delete workshop
   const deleteWorkshop = async (id: string): Promise<void> => {
@@ -187,7 +237,9 @@ const Workshops: React.FC = () => {
       curriculum: ['']
     });
     setEditingWorkshop(null);
+    resetImageSelection(); // Add this line
   };
+  
 
   // Open edit modal
   const openEditModal = (workshop: Workshop): void => {
@@ -205,9 +257,11 @@ const Workshops: React.FC = () => {
       upcoming: workshop.upcoming,
       curriculum: workshop.curriculum
     });
+    setImagePreview(workshop.image); // Add this line to show current image
+    setSelectedImageFile(null); // Reset file selection
     setShowModal(true);
   };
-
+  
   // Add curriculum item
   const addCurriculumItem = (): void => {
     setNewWorkshop(prev => ({
@@ -553,16 +607,62 @@ const Workshops: React.FC = () => {
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Image URL
-                </label>
-                <input
-                  type="url"
-                  value={newWorkshop.image}
-                  onChange={(e) => setNewWorkshop(prev => ({ ...prev, image: e.target.value }))}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:border-primary-500 text-white"
-                />
-              </div>
+  <label className="block text-sm font-medium text-gray-300 mb-2">
+    Workshop Image
+  </label>
+  
+  {/* Image Preview */}
+  {(imagePreview || newWorkshop.image) && (
+    <div className="mb-4">
+      <img
+        src={imagePreview || newWorkshop.image}
+        alt="Workshop preview"
+        className="w-full h-48 object-cover rounded-lg border border-gray-600"
+      />
+    </div>
+  )}
+  
+  {/* File Input */}
+  <div className="space-y-3">
+    <input
+      type="file"
+      accept="image/*"
+      onChange={handleImageChange}
+      className="block w-full text-sm text-gray-300
+                 file:mr-4 file:py-2 file:px-4
+                 file:rounded-lg file:border-0
+                 file:text-sm file:font-medium
+                 file:bg-primary-600 file:text-white
+                 hover:file:bg-primary-700
+                 file:cursor-pointer cursor-pointer"
+    />
+    
+    {/* Fallback URL Input */}
+    <div className="text-sm text-gray-400">Or enter image URL:</div>
+    <input
+      type="url"
+      value={newWorkshop.image}
+      onChange={(e) => {
+        setNewWorkshop(prev => ({ ...prev, image: e.target.value }));
+        if (!selectedImageFile) {
+          setImagePreview(e.target.value);
+        }
+      }}
+      placeholder="https://example.com/image.jpg"
+      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:border-primary-500 text-white"
+    />
+    
+    {selectedImageFile && (
+      <button
+        type="button"
+        onClick={resetImageSelection}
+        className="text-red-400 hover:text-red-300 text-sm"
+      >
+        Remove selected image
+      </button>
+    )}
+  </div>
+</div>
 
               {/* Upcoming Sessions */}
               <div className="md:col-span-2">
