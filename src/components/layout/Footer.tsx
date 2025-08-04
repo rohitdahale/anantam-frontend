@@ -19,12 +19,6 @@ const Footer = () => {
               Pioneering advanced aerial solutions and robotics systems for a connected future.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
-                <Facebook size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
-                <Twitter size={20} />
-              </a>
               <a href="https://www.instagram.com/anantamaerialsandrobotics_/" className="text-gray-400 hover:text-primary-400 transition-colors" target='_blank' rel='noopener noreferrer'>
                 <Instagram size={20} />
               </a>

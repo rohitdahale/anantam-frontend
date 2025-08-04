@@ -23,7 +23,7 @@ const AuthPage = lazy(() => import('./pages/AuthPage'));
 const AuthSuccess = lazy(() => import('./pages/AuthSuccess'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
-const PortfolioPage = lazy(() => import('./pages/PortfolioPage'))
+//const PortfolioPage = lazy(() => import('./pages/PortfolioPage'))
 const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage'));
 const PaymentSuccessPage = lazy(() => import('./pages/PaymentSuccessPage'));
 const MyOrdersPage = lazy(() => import('./pages/MyOrdersPage'));
@@ -62,7 +62,7 @@ function App() {
             <Route path="auth/success" element={<AuthSuccess />} />
             <Route path="/payment-success/:orderId?" element={<PaymentSuccessPage />} />
             <Route path="/orders" element={<MyOrdersPage />} />
-            <Route path='portfolio' element={<PortfolioPage />}/>
+            {/* <Route path='portfolio' element={<PortfolioPage />}/> */}
 
                  {/* Legal Pages */}
             <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
